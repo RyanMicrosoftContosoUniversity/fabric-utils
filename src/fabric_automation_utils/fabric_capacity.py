@@ -108,7 +108,7 @@ class FabricCapacityMGMT:
         self.resource_group = resource_group
         self.capacity_name = capacity_name
         self.client = FabricMgmtClient(
-            credential=DefaultAzureCredential(),
+            credential=ClientSecretCredential(tenant_id=spn.tenant_id, client_id=spn.client_id, client_secret=spn.client_secret),
             subscription_id=self.subscription_id
         )
         self.capacity_result = self._get_capacity()
