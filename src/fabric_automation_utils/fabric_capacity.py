@@ -15,11 +15,12 @@ Suspend
 Update
 
 """
-from azure.identity import DefaultAzureCredential
+from azure.identity import DefaultAzureCredential, ClientSecretCredential
 from azure.mgmt.fabric import FabricMgmtClient
 from fabric_automation_utils.service_principal import ServicePrincipal
 import json
 import re
+from azure.keyvault.secrets import SecretClient
 
 """
 # PREREQUISITES
@@ -82,10 +83,11 @@ class FabricCapacitiesBySubscription:
         self.spn = spn
         self.subscription_id = subscription_id
         self.client = FabricMgmtClient(
-            credential=DefaultAzureCredential(),
+            credential=ClientSecretCredential(tenant_id=spn.tenant_id, client_id=spn.client_id, client_secret=spn.client_secret),
             subscription_id=self.subscription_id
         )
         self.capacities_list = self.list_capacities_by_subscription()
+
 
     def list_capacities_by_subscription(self):
         """
