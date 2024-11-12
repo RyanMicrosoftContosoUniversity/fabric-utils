@@ -12,8 +12,6 @@ def main():
         vault_url=config_data['vault_url']
     )
     subscription_id = '910ebf13-1058-405d-b6cf-eda03e5288d1'
-    rg = 'fabric-rg'
-    cap_name = 'fabricf2testrh'
 
     # client = FabricCapacityMGMT(spn=spn, subscription_id=subscription_id, resource_group=rg, capacity_name=cap_name)
     client = FabricCapacitiesBySubscription(spn=spn, subscription_id=subscription_id)
