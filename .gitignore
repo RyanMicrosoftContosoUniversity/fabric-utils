@@ -13,4 +13,4 @@ fabric_automation.egg-info/
 fabricautomationframework.egg-info/
 logs/
 src/fabric_automation_utils.egg-info/
-rc/fabric_automation_utils/__pycache__/
+src/fabric_automation_utils/__pycache__/
