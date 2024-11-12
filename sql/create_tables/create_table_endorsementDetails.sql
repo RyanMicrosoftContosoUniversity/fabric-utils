@@ -4,8 +4,8 @@ BEGIN
         id INT PRIMARY KEY IDENTITY,
         fk_object_id VARCHAR(255) NOT NULL,
         foreignKeyObjectType VARCHAR(255) NOT NULL,
-        endorsement VARCHAR(255) NOT NULL,
-        certifiedBy VARCHAR(255) NOT NULL,
+        endorsement VARCHAR(255),
+        certifiedBy VARCHAR(255),
 
         CONSTRAINT ck_foreignKeyObjectType_endorsementDetails CHECK (foreignKeyObjectType IN ('dataflow', 'datamart', 'report', 'dataset'))
     );

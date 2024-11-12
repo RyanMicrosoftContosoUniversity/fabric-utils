@@ -5,7 +5,7 @@ BEGIN
         name VARCHAR(255) NOT NULL,
         type VARCHAR(255) NOT NULL,
         isOnDedicatedCapacity BIT NOT NULL,
-        capacityId VARCHAR(255) NOT NULL,
-        defaultDatasetStorageFormat VARCHAR(255) NOT NULL
+        capacityId VARCHAR(255),
+        defaultDatasetStorageFormat VARCHAR(255)
     );
 END

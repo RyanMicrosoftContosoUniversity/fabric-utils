@@ -1,5 +1,5 @@
 from src.service_principal import ServicePrincipal
-from src.scan import Scan   
+from src.fabric_automation_utils.scan import Scan   
 import json
 
 
@@ -21,4 +21,8 @@ scan_status = scan.get_scan_status(scan_id=scan.scan_request['id'])
 # write scan to file in docs folder
 with open('docs/scan_response.json', 'w') as f:
     json.dump(scan.scan_results, f, indent=4)
+
+
+
+
 

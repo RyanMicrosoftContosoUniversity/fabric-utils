@@ -1,7 +1,0 @@
-CREATE TABLE IF NOT EXISTS dataset(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    workspaceId VARCHAR(255) NOT NULL
-
-    FOREIGN KEY (workspaceId) REFERENCES workspace(id)
-);
