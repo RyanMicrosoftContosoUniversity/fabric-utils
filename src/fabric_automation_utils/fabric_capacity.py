@@ -21,6 +21,7 @@ from fabric_automation_utils.service_principal import ServicePrincipal
 import json
 import re
 from azure.keyvault.secrets import SecretClient
+import asyncio
 
 """
 # PREREQUISITES
@@ -83,20 +84,20 @@ class FabricCapacitiesBySubscription:
         self.spn = spn
         self.subscription_id = subscription_id
         self.client = FabricMgmtClient(
-            credential=ClientSecretCredential(tenant_id=spn.tenant_id, client_id=spn.client_id, client_secret=spn.client_secret),
-            subscription_id=self.subscription_id
+            credential=ClientSecretCredential(tenant_id=spn.tenant_id, client_id=spn.client_id, client_secret=spn.client_secret.value),
+            subscription_id=self.subscription_id,
+            base_url='https://management.azure.com'
         )
-        self.capacities_list = self.list_capacities_by_subscription()
+        self.capacities_list = self.list_capacities_by_resource_group()
 
 
-    def list_capacities_by_subscription(self):
-        """
-        List all capacities in subscription
-        """
-        response = self.client.fabric_capacities.list_by_subscription()
-
-        return response
-
+    def list_capacities_by_resource_group(self):
+        
+        # list be resource group name
+        rg_name = 'fabric-rg'
+        items = self.client.fabric_capacities.list_by_resource_group(resource_group_name=rg_name)
+        capacities_list = [item for item in items]
+        return capacities_list
 
 class FabricCapacityMGMT:
     """
@@ -108,7 +109,7 @@ class FabricCapacityMGMT:
         self.resource_group = resource_group
         self.capacity_name = capacity_name
         self.client = FabricMgmtClient(
-            credential=ClientSecretCredential(tenant_id=spn.tenant_id, client_id=spn.client_id, client_secret=spn.client_secret),
+            credential=ClientSecretCredential(tenant_id=spn.tenant_id, client_id=spn.client_id, client_secret=spn.client_secret.value),
             subscription_id=self.subscription_id
         )
         self.capacity_result = self._get_capacity()
