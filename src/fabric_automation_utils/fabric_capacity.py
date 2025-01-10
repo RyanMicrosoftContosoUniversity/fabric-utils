@@ -91,10 +91,9 @@ class FabricCapacitiesBySubscription:
         self.capacities_list = self.list_capacities_by_resource_group()
 
 
-    def list_capacities_by_resource_group(self):
+    def list_capacities_by_resource_group(self, rg_name:str)->list:
         
         # list be resource group name
-        rg_name = 'fabric-rg'
         items = self.client.fabric_capacities.list_by_resource_group(resource_group_name=rg_name)
         capacities_list = [item for item in items]
         return capacities_list
