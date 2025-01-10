@@ -80,9 +80,10 @@ class FabricCapacitiesBySubscription:
     """
     Get all Fabric Capacities from a subscription
     """
-    def __init__(self, spn:ServicePrincipal, subscription_id:str):
+    def __init__(self, spn:ServicePrincipal, subscription_id:str, rg_name:str):
         self.spn = spn
         self.subscription_id = subscription_id
+        self.rg_name = rg_name
         self.client = FabricMgmtClient(
             credential=ClientSecretCredential(tenant_id=spn.tenant_id, client_id=spn.client_id, client_secret=spn.client_secret.value),
             subscription_id=self.subscription_id,
@@ -91,10 +92,10 @@ class FabricCapacitiesBySubscription:
         self.capacities_list = self.list_capacities_by_resource_group()
 
 
-    def list_capacities_by_resource_group(self, rg_name:str)->list:
+    def list_capacities_by_resource_group(self)->list:
         
         # list be resource group name
-        items = self.client.fabric_capacities.list_by_resource_group(resource_group_name=rg_name)
+        items = self.client.fabric_capacities.list_by_resource_group(resource_group_name=self.rg_name)
         capacities_list = [item for item in items]
         return capacities_list
 
