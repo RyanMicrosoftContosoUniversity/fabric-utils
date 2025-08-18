@@ -36,31 +36,31 @@ class ShortcutUtils:
         }
     }
 
+    @staticmethod
+    def create_shortcut(workspace_id:str, item_id:str, target:str, api_token:str):
+        """
+        https://learn.microsoft.com/en-us/rest/api/fabric/core/onelake-shortcuts/create-shortcut?tabs=HTTP
 
-def create_shortcut(workspace_id:str, item_id:str, target:str, api_token:str):
-    """
-    https://learn.microsoft.com/en-us/rest/api/fabric/core/onelake-shortcuts/create-shortcut?tabs=HTTP
+        Create a new shortcut
 
-    Create a new shortcut
+        workspace_id:str: The uuid of the workspace where the shortcut is to be created
+        item_id:str: The uuid of the item to be created
+        api_token:str: The API Token used for authentication with the endpoiont
+        """
+        url = f'https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/items/{item_id}/shortcuts?shortcutConflictPolicy=CreateOrOverwrite'
 
-    workspace_id:str: The uuid of the workspace where the shortcut is to be created
-    item_id:str: The uuid of the item to be created
-    api_token:str: The API Token used for authentication with the endpoiont
-    """
-    url = f'https://api.fabric.microsoft.com/v1/workspaces/{workspace_id}/items/{item_id}/shortcuts?shortcutConflictPolicy=CreateOrOverwrite'
+        headers = {
+        "Authorization": f"Bearer {api_token}",
+        "Content-Type": "application/json"
+        }
 
-    headers = {
-    "Authorization": f"Bearer {api_token}",
-    "Content-Type": "application/json"
-    }
+        response = requests.post(url, headers=headers,json=target)
 
-    response = requests.post(url, headers=headers,json=target)
+        if response.status_code >=200 and response.status_code <300:
+            print(f'Shortcut Request Successful: {response.content}')
 
-    if response.status_code >=200 and response.status_code <300:
-        print(f'Shortcut Request Successful: {response.content}')
+            return response
+        else:
+            print(f'Error in creating shortcut: {response.content}')
 
-        return response
-    else:
-        print(f'Error in creating shortcut: {response.content}')
-
-        return response
+            return response
