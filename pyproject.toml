@@ -1,4 +1,24 @@
 [build-system]
-requires = ["setuptools>42.0", "wheel"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "fabric_utils"
+version = "1.0.0"
+description = "A utilities framework for Microsoft Fabric"
+readme = "README.md"
+requires-python = ">=3.13"
+
+dependencies = [
+    "msal>=1.25.0",
+    "azure-identity>=1.15.1,<=1.16.0",
+    "azure-keyvault-secrets>=4.7.0",
+    "requests>=2.31.0",
+    "azure-mgmt-fabric",
+]
+
+[project.optional-dependencies]
+fabric = [
+    "notebookutils"  # Only available in Fabric runtime
+]
 

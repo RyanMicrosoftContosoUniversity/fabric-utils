@@ -1,0 +1,16 @@
+Notes for building (wheel-only)
+
+# install build tooling
+python -m pip install --upgrade pip setuptools wheel build twine
+
+# clean previous artifacts
+Remove-Item -Recurse -Force .\dist\,.\build\,.\*.egg-info -ErrorAction SilentlyContinue
+
+# build wheel only to dist\
+python -m build --wheel
+
+# verify the wheel metadata
+python -m twine check .\dist\*.whl
+
+# optional: quick local install test
+python -m pip install --force-reinstall .\dist\*.whl
